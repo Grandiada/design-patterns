@@ -42,9 +42,10 @@ export class InputValidator {
         Logger.error(this.buildMessage(line, `Coordinates are not numbers`));
         return { isValid: false };
 
-      default:
+      default: {
         const [id, ...coords] = line.split(" ");
         return { isValid: true, id, coordinates: coords.map(Number) };
+      }
     }
   }
 
@@ -57,12 +58,12 @@ export class InputValidator {
   }
 
   private validateLength(line: string): boolean {
-    const [_id, ...coords] = line.split(" ");
+    const [, ...coords] = line.split(" ");
     return coords.length === this.coordinatesCount;
   }
 
   private validateNumbers(line: string): boolean {
-    const [_id, ...coords] = line.split(" ");
+    const [, ...coords] = line.split(" ");
     return coords.every((value) => !isNaN(Number(value)));
   }
 }

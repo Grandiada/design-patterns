@@ -1,7 +1,6 @@
 import { Tetrahedron } from "../entities/Tetrahedron";
 import { Point } from "../entities/Point";
 import { Creator } from "./Creator";
-import { Logger } from "../logger";
 import { InputValidator } from "../validators/InputValidator";
 
 export class TetrahedronFactory implements Creator {
