@@ -1,6 +1,6 @@
 import { Logger } from "../logger";
 
-type ValidationResult =
+type ParserResult =
   | {
       isValid: false;
     }
@@ -10,14 +10,14 @@ type ValidationResult =
       coordinates: number[];
     };
 
-export class InputValidator {
+export class InputParser {
   constructor(private readonly coordinatesCount: number) {}
 
   private buildMessage(line: string, message: string): string {
     return `${line} | Error: ${message}`;
   }
 
-  validateAndParse(line: string): ValidationResult {
+  validateAndParse(line: string): ParserResult {
     switch (true) {
       case this.validateEmpty(line):
         Logger.error(

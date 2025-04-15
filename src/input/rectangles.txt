@@ -1,13 +1,13 @@
-R1 0 0 4 0 4 3 0 3
-R2 1 1 5 1 5 4 1 4
-R3 -2 -2 2 -2 2 2 -2 2
-R4 10 10 15 10 15 15 10 15
-R5 0 0 2 0 2 2 0 2
-R6 0 0 3 0 3 1 0 1
-R7 -5 -5 -1 -5 -1 -2 -5 -2
-R8 3 3 6 3 6 6 3 6
-R9 1.5 1.5 4.5 1.5 4.5 2.5 1.5 2.5
-R10 0 0 5 0 5 5 0 5
+Perimetr14 0 0 4 0 4 3 0 3
+Area12 1 1 5 1 5 4 1 4
+Rectangle3 -2 -2 2 -2 2 2 -2 2
+Square 10 10 15 10 15 15 10 15
+RhombClean 0 0 2 1 4 0 2 -1
+TrapezoidClean 0 0 4 0 3 2 1 2
+FlatTriangle 0 0 2 0 4 0 1 1
+RhombTrapezoid 0 0 2 2 4 0 2 -2
+Trapezoid 1.5 1.5 4.5 1.5 4.5 2.5 1.5 2.5
+NotConvex 0 0 4 0 2 -1 0 3
 Incorect11 0 0 1 1 2 2      
 Incorect12 0 0 1 0 1 a 0 1   
 Incorect13 0 0 2 0 2 2       

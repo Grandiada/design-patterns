@@ -1,11 +1,11 @@
 import { Point } from "../entities/Point";
 import { Rectangle } from "../entities/Rectangle";
-import { InputValidator } from "../validators/InputValidator";
+import { InputParser } from "../parsers/InputParser";
 import { Creator } from "./Creator";
 
 export class RectangleCreator implements Creator {
   public createObject(line: string): Rectangle | undefined {
-    const validator = new InputValidator(8);
+    const validator = new InputParser(8);
     const validationResult = validator.validateAndParse(line);
 
     if (!validationResult.isValid) {

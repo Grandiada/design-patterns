@@ -1,11 +1,11 @@
 import { Tetrahedron } from "../entities/Tetrahedron";
 import { Point } from "../entities/Point";
 import { Creator } from "./Creator";
-import { InputValidator } from "../validators/InputValidator";
+import { InputParser } from "../parsers/InputParser";
 
 export class TetrahedronFactory implements Creator {
   public createObject(line: string): Tetrahedron | undefined {
-    const validator = new InputValidator(12);
+    const validator = new InputParser(12);
     const validationResult = validator.validateAndParse(line);
 
     if (!validationResult.isValid) {
