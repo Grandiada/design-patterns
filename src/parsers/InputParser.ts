@@ -14,7 +14,7 @@ export class InputParser {
   constructor(private readonly coordinatesCount: number) {}
 
   private buildMessage(line: string, message: string): string {
-    return `${line} | Error: ${message}`;
+    return `\nError: ${message} | Line: ${line}`;
   }
 
   safeValidateAndParse(line: string): ParserResult {
