@@ -1,0 +1,10 @@
+{"level":50,"time":1744832372682,"pid":58500,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect11 0 0 0 0 0 0 0 0 0 0 0 0   \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832372682,"pid":58500,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect12 0 0 0 1 1 1 2 2           \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832372682,"pid":58500,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect13 0 0 0 1 1 1 2 2 2 3 3 z   \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832372682,"pid":58500,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect14 0 0 0 1 1 1 2 2 2 3 3 3 4 \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832372682,"pid":58500,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect15 1 1                       \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832457051,"pid":65976,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect11 0 0 0 0 0 0 0 0 0 0 0 0   \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832457051,"pid":65976,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect12 0 0 0 1 1 1 2 2           \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832457051,"pid":65976,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect13 0 0 0 1 1 1 2 2 2 3 3 z   \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832457051,"pid":65976,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect14 0 0 0 1 1 1 2 2 2 3 3 3 4 \r | Error: Invalid count of coordinates, expected 12"}
+{"level":50,"time":1744832457051,"pid":65976,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"Incorrect15 1 1                       \r | Error: Invalid count of coordinates, expected 12"}
