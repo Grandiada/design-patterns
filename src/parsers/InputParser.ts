@@ -11,6 +11,8 @@ type ParserResult =
     };
 
 export class InputParser {
+  private ID_REGEXP = /^[a-zA-Z][a-zA-Z0-9]*$/;
+ 
   constructor(private readonly coordinatesCount: number) {}
 
   private buildMessage(line: string, message: string): string {
@@ -59,7 +61,7 @@ export class InputParser {
   }
 
   private validateId(line: string): boolean {
-    return /^[a-zA-Z][a-zA-Z0-9]*$/.test(line.split(" ")[0]);
+    return this.ID_REGEXP.test(line.split(" ")[0]);
   }
 
   private validateLength(line: string): boolean {
