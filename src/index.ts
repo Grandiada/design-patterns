@@ -1,12 +1,9 @@
-import { RectangleReader } from "./readers";
-import { RectangleService } from "./services";
+// import { RectangleManager } from "./managers";
 
-const reader = new RectangleReader().read();
+import { TetrahedronManager } from "./managers/TetrahedronManager";
 
-reader.parse();
+// const rectangleManager = new RectangleManager().read().safeParse();
+// console.log(rectangleManager.getObjectInfo("Perimetr14"));
 
-const rectangle = reader.getObject("Square");
-console.log(rectangle, RectangleService.isSquare(rectangle));
-
-const convex = reader.getObject("Rectangle3");
-console.log(convex, RectangleService.isRectangle(convex));
+const tetrahedronManager = new TetrahedronManager().read().safeParse();
+console.log(tetrahedronManager.getObjectInfo("TnoBase"));

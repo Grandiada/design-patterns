@@ -1,3 +1,6 @@
+Invalid 0 0 0 0 0 0 0 0 0 0 0 0
+Volume16 0 0 0 4 0 0 0 4 0 0 0 6
+VolumeRatio8 0 0 -1 6 0 2 0 6 2 0 0 2
 T1 0 0 0 1 0 0 0 1 0 0 0 1
 T2 1 1 1 2 1 1 1 2 1 1 1 2
 T3 -1 -1 -1 1 -1 -1 -1 1 -1 -1 -1 1
@@ -13,3 +16,5 @@ Incorrect12 0 0 0 1 1 1 2 2
 Incorrect13 0 0 0 1 1 1 2 2 2 3 3 z   
 Incorrect14 0 0 0 1 1 1 2 2 2 3 3 3 4 
 Incorrect15 1 1                       
+TvolumeRatio8Free 0 0 -1 6 0 1 0 6 1 0 0 5
+TnoBase 1 1 1 2 3 4 4 2 3 3 5 6
