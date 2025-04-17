@@ -4,17 +4,14 @@ import systemPath from "path";
 export const Logger = pino({
   name: "design-patterns-homework",
   transport: {
-    targets: [
+    targets: process.env.NODE_ENV === "test" ? [] : [
       {
-        target: "pino/file",
+        target: "pino/file", 
         options: {
-          destination:
-            process.env.NODE_ENV === "test"
-              ? undefined
-              : systemPath.resolve(__dirname, "log.txt"),
-          mkdir: process.env.NODE_ENV !== "test",
-        append: false,
-        sync: true
+          destination: systemPath.resolve(__dirname, "log.txt"),
+          mkdir: true,
+          append: false,
+          sync: true
         },
       },
       {
