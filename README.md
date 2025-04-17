@@ -42,7 +42,6 @@ src/
 ### Main Dependencies
 - TypeScript
 - Pino (for logging)
-- Vector Math
 
 ### Development Dependencies
 - Jest (for testing)

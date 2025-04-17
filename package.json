@@ -23,7 +23,6 @@
   "dependencies": {
     "pino": "^9.6.0",
     "tsx": "^4.19.3",
-    "vector-math": "^1.1.1",
     "typescript": "^5.0.0"
   },
   "devDependencies": {
