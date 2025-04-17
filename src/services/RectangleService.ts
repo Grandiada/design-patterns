@@ -57,12 +57,23 @@ export class RectangleService {
 
     // All dot products should be close to 0 for perpendicular vectors
     const epsilon = 1e-6;
-    return (
+    const isPerpendicular = 
       Math.abs(dot1) < epsilon &&
       Math.abs(dot2) < epsilon &&
       Math.abs(dot3) < epsilon &&
-      Math.abs(dot4) < epsilon
-    );
+      Math.abs(dot4) < epsilon;
+
+    // For a rectangle, opposite sides must be equal in length
+    const side1 = Math.sqrt(v1x * v1x + v1y * v1y);
+    const side2 = Math.sqrt(v2x * v2x + v2y * v2y);
+    const side3 = Math.sqrt(v3x * v3x + v3y * v3y);
+    const side4 = Math.sqrt(v4x * v4x + v4y * v4y);
+
+    const oppositeSidesEqual = 
+      Math.abs(side1 - side3) < epsilon &&
+      Math.abs(side2 - side4) < epsilon;
+
+    return isPerpendicular && oppositeSidesEqual;
   }
 
   isSquare(): boolean {
@@ -92,7 +103,8 @@ export class RectangleService {
     return (
       Math.abs(side1 - side2) < epsilon &&
       Math.abs(side2 - side3) < epsilon &&
-      Math.abs(side3 - side4) < epsilon
+      Math.abs(side3 - side4) < epsilon &&
+      Math.abs(side4 - side1) < epsilon
     );
   }
 
