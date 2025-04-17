@@ -1,19 +1,6 @@
-# Design Patterns Project
-
-A TypeScript-based project demonstrating various design patterns with a focus on geometric shapes and calculations.
-
-## Project Overview
-
-This project implements several design patterns in TypeScript, showcasing their practical applications in a geometric shapes and calculations context. The project includes implementations of various design patterns such as:
-
-- Factory Pattern
-- Strategy Pattern
-- Observer Pattern
-- And more...
-
 ## Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v20 or higher)
 - npm or yarn
 
 ## Installation
@@ -61,19 +48,3 @@ src/
 - Jest (for testing)
 - ESLint (for code linting)
 - TypeScript ESLint plugins
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is UNLICENSED.
-
-## Author
-
-Pavel
