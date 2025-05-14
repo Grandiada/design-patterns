@@ -1,3 +1,4 @@
+import { Figure } from "../entities/Figure";
 import { RectangleManager } from "../managers/RectangleManager";
 import { RectangleService } from "../services/RectangleService";
 import { FigureRepository } from "./FigureRepository";
@@ -7,10 +8,21 @@ export class RectangleRepository extends FigureRepository<RectangleManager> {
     super(manager);
   }
 
-  analize(id: string) {
-    return this.manager.getObjectInfo(id);
+  public notifyObservers(id: string, figure: Figure | null): void {
+    this.observers.forEach((observer) => {
+      if (!figure) {
+        observer.update(id, null);
+      } else {
+        const service = new RectangleService(figure);
+        observer.update(id, {
+          area: service.area(),
+          volume: null,
+          perimeter: service.perimeter(),
+        });
+      }
+    });
   }
-  
+
   findById(id: string) {
     return this.findFirst({ isSatisfiedBy: (i) => i.id === id });
   }

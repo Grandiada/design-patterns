@@ -6,12 +6,13 @@ import { InputParser } from "../parsers";
 import { Figure } from "../entities/Figure";
 
 export abstract class Manager<F extends Figure> {
-  abstract path: string;
-  abstract factory: Creator;
-  abstract coordinatesLength: number;
+  protected abstract path: string;
+  protected abstract factory: Creator;
+  protected abstract coordinatesLength: number;
   protected abstract analyze(object: F): string;
 
   protected lines: string[] = [];
+
   private objects: F[] = [];
 
   read(): Manager<F> {
