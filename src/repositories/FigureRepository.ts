@@ -25,7 +25,7 @@ export abstract class FigureRepository<
   abstract findById(id: string): F | undefined;
   abstract getAllValidFigures(): F[];
   abstract getAllBySurfaceAreaRange(min: number, max: number): F[] | undefined;
-
+  
   // Public methods
   public add(item: F): void {
     if (this.objects.has(item.id)) {
