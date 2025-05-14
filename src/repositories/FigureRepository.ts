@@ -1,3 +1,4 @@
+import { IdComparator, P1Comparator, P2Comparator } from "../comparators";
 import { IComparator } from "../comparators/IComparator";
 import { Figure } from "../entities/Figure";
 import { Manager } from "../managers/Manager";
@@ -45,23 +46,15 @@ export abstract class FigureRepository<
   }
 
   public getSortedById(): F[] {
-    return this.toList((a, b) => a.id.localeCompare(b.id));
+    return this.toList(IdComparator);
   }
 
   public getSortedByP1(): F[] {
-    return this.toList((a, b) => a.p1.x - b.p1.x || a.p1.y - b.p1.y);
+    return this.toList(P1Comparator);
   }
 
   public getSortedByP2(): F[] {
-    return this.toList((a, b) => a.p2.x - b.p2.x || a.p2.y - b.p2.y);
-  }
-
-  public getSortedByP3(): F[] {
-    return this.toList((a, b) => a.p3.x - b.p3.x || a.p3.y - b.p3.y);
-  }
-
-  public getSortedByP4(): F[] {
-    return this.toList((a, b) => a.p4.x - b.p4.x || a.p4.y - b.p4.y);
+    return this.toList(P2Comparator);
   }
 
   // Protected methods
