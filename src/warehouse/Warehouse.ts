@@ -8,7 +8,7 @@ type FigureProperties = {
 };
 
 export class Warehouse implements IObserver {
-  private static instance: Warehouse;
+  private static instance: Warehouse | undefined;
   private storage: Map<string, FigureProperties> = new Map();
 
   private constructor() {}
@@ -18,6 +18,16 @@ export class Warehouse implements IObserver {
       Warehouse.instance = new Warehouse();
     }
     return Warehouse.instance;
+  }
+
+  /**
+   * Resets the singleton instance to undefined.
+   * This method is intended for testing purposes only to ensure a clean state between tests.
+   *
+   * @deprecated to warn attention
+   */
+  public static resetInstance(): void {
+    Warehouse.instance = undefined;
   }
 
   public update(id: Figure["id"], properties: FigureProperties | null): void {
