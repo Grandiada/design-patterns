@@ -81,10 +81,10 @@ describe("Creators", () => {
 
       expect(tetrahedron).toBeInstanceOf(Tetrahedron);
       expect(tetrahedron.id).toBe(id);
-      expect(tetrahedron.a).toEqual(new Point3D(0, 0, 0));
-      expect(tetrahedron.b).toEqual(new Point3D(1, 0, 0));
-      expect(tetrahedron.c).toEqual(new Point3D(0, 1, 0));
-      expect(tetrahedron.d).toEqual(new Point3D(0, 0, 1));
+      expect(tetrahedron.p1).toEqual(new Point3D(0, 0, 0));
+      expect(tetrahedron.p2).toEqual(new Point3D(1, 0, 0));
+      expect(tetrahedron.p3).toEqual(new Point3D(0, 1, 0));
+      expect(tetrahedron.p4).toEqual(new Point3D(0, 0, 1));
     });
 
     test("should throw error for insufficient coordinates", () => {
@@ -110,10 +110,10 @@ describe("Creators", () => {
       const coordinates = [0.5, 0.5, 0.5, 1.5, 0.5, 0.5, 0.5, 1.5, 0.5, 0.5, 0.5, 1.5];
       const tetrahedron = creator.createObject(id, coordinates);
 
-      expect(tetrahedron.a).toEqual(new Point3D(0.5, 0.5, 0.5));
-      expect(tetrahedron.b).toEqual(new Point3D(1.5, 0.5, 0.5));
-      expect(tetrahedron.c).toEqual(new Point3D(0.5, 1.5, 0.5));
-      expect(tetrahedron.d).toEqual(new Point3D(0.5, 0.5, 1.5));
+      expect(tetrahedron.p1).toEqual(new Point3D(0.5, 0.5, 0.5));
+      expect(tetrahedron.p2).toEqual(new Point3D(1.5, 0.5, 0.5));
+      expect(tetrahedron.p3).toEqual(new Point3D(0.5, 1.5, 0.5));
+      expect(tetrahedron.p4).toEqual(new Point3D(0.5, 0.5, 1.5));
     });
 
     test("should handle negative coordinates", () => {
@@ -121,10 +121,10 @@ describe("Creators", () => {
       const coordinates = [-1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1, 1];
       const tetrahedron = creator.createObject(id, coordinates);
 
-      expect(tetrahedron.a).toEqual(new Point3D(-1, -1, -1));
-      expect(tetrahedron.b).toEqual(new Point3D(1, -1, -1));
-      expect(tetrahedron.c).toEqual(new Point3D(-1, 1, -1));
-      expect(tetrahedron.d).toEqual(new Point3D(-1, -1, 1));
+      expect(tetrahedron.p1).toEqual(new Point3D(-1, -1, -1));
+      expect(tetrahedron.p2).toEqual(new Point3D(1, -1, -1));
+      expect(tetrahedron.p3).toEqual(new Point3D(-1, 1, -1));
+      expect(tetrahedron.p4).toEqual(new Point3D(-1, -1, 1));
     });
 
     test("should handle mixed positive and negative coordinates", () => {
@@ -132,10 +132,10 @@ describe("Creators", () => {
       const coordinates = [-1, 1, -1, 1, -1, 1, -1, 1, -1, 1, -1, 1];
       const tetrahedron = creator.createObject(id, coordinates);
 
-      expect(tetrahedron.a).toEqual(new Point3D(-1, 1, -1));
-      expect(tetrahedron.b).toEqual(new Point3D(1, -1, 1));
-      expect(tetrahedron.c).toEqual(new Point3D(-1, 1, -1));
-      expect(tetrahedron.d).toEqual(new Point3D(1, -1, 1));
+      expect(tetrahedron.p1).toEqual(new Point3D(-1, 1, -1));
+      expect(tetrahedron.p2).toEqual(new Point3D(1, -1, 1));
+      expect(tetrahedron.p3).toEqual(new Point3D(-1, 1, -1));
+      expect(tetrahedron.p4).toEqual(new Point3D(1, -1, 1));
     });
   });
 }); 

@@ -46,10 +46,10 @@ describe("Tetrahedron", () => {
     const tetra = new Tetrahedron("tetra1", a, b, c, d);
 
     expect(tetra.id).toBe("tetra1");
-    expect(tetra.a).toBe(a);
-    expect(tetra.b).toBe(b);
-    expect(tetra.c).toBe(c);
-    expect(tetra.d).toBe(d);
+    expect(tetra.p1).toBe(a);
+    expect(tetra.p2).toBe(b);
+    expect(tetra.p3).toBe(c);
+    expect(tetra.p4).toBe(d);
   });
 
   test("should create multiple Tetrahedron instances with different points", () => {
@@ -69,8 +69,8 @@ describe("Tetrahedron", () => {
     );
 
     expect(tetra1.id).not.toBe(tetra2.id);
-    expect(tetra1.b.x).not.toBe(tetra2.b.x);
-    expect(tetra1.c.y).not.toBe(tetra2.c.y);
-    expect(tetra1.d.z).not.toBe(tetra2.d.z);
+    expect(tetra1.p2.x).not.toBe(tetra2.p2.x);
+    expect(tetra1.p3.y).not.toBe(tetra2.p3.y);
+    expect(tetra1.p4.z).not.toBe(tetra2.p4.z);
   });
 }); 

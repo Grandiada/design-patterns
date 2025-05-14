@@ -3,7 +3,7 @@ import { Rectangle } from "../entities";
 import { RectangleService } from "../services";
 import { Manager } from "./Manager";
 
-export class RectangleManager extends Manager<RectangleCreator> {
+export class RectangleManager extends Manager<Rectangle> {
   public factory = new RectangleCreator();
   public path = "src/input/rectangles.txt";
   public coordinatesLength = 8;

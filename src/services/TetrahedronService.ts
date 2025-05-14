@@ -40,10 +40,10 @@ export class TetrahedronService {
 
   volume(): number {
     return this.getVolume(
-      this.tetrahedron.a,
-      this.tetrahedron.b,
-      this.tetrahedron.c,
-      this.tetrahedron.d
+      this.tetrahedron.p1,
+      this.tetrahedron.p2,
+      this.tetrahedron.p3,
+      this.tetrahedron.p4
     );
   }
 
@@ -63,10 +63,10 @@ export class TetrahedronService {
   getBasePlane(): "XY" | "XZ" | "YZ" | "None" {
     // Check XY plane (z coordinates)
     const zCoords = [
-      this.tetrahedron.a.z,
-      this.tetrahedron.b.z,
-      this.tetrahedron.c.z,
-      this.tetrahedron.d.z,
+      this.tetrahedron.p1.z,
+      this.tetrahedron.p2.z,
+      this.tetrahedron.p3.z,
+      this.tetrahedron.p4.z,
     ];
     const zCounts = new Map<number, number>();
     for (const z of zCoords) {
@@ -78,10 +78,10 @@ export class TetrahedronService {
 
     // Check XZ plane (y coordinates)
     const yCoords = [
-      this.tetrahedron.a.y,
-      this.tetrahedron.b.y,
-      this.tetrahedron.c.y,
-      this.tetrahedron.d.y,
+      this.tetrahedron.p1.y,
+      this.tetrahedron.p2.y,
+      this.tetrahedron.p3.y,
+      this.tetrahedron.p4.y,
     ];
     const yCounts = new Map<number, number>();
     for (const y of yCoords) {
@@ -93,10 +93,10 @@ export class TetrahedronService {
 
     // Check YZ plane (x coordinates)
     const xCoords = [
-      this.tetrahedron.a.x,
-      this.tetrahedron.b.x,
-      this.tetrahedron.c.x,
-      this.tetrahedron.d.x,
+      this.tetrahedron.p1.x,
+      this.tetrahedron.p2.x,
+      this.tetrahedron.p3.x,
+      this.tetrahedron.p4.x,
     ];
     const xCounts = new Map<number, number>();
     for (const x of xCoords) {
@@ -117,10 +117,10 @@ export class TetrahedronService {
     }
 
     const triangles = [
-      [this.tetrahedron.a, this.tetrahedron.b, this.tetrahedron.c],
-      [this.tetrahedron.a, this.tetrahedron.b, this.tetrahedron.d],
-      [this.tetrahedron.a, this.tetrahedron.c, this.tetrahedron.d],
-      [this.tetrahedron.b, this.tetrahedron.c, this.tetrahedron.d],
+      [this.tetrahedron.p1, this.tetrahedron.p2, this.tetrahedron.p3],
+      [this.tetrahedron.p1, this.tetrahedron.p2, this.tetrahedron.p4],
+      [this.tetrahedron.p1, this.tetrahedron.p3, this.tetrahedron.p4],
+      [this.tetrahedron.p2, this.tetrahedron.p3, this.tetrahedron.p4],
     ];
 
     return triangles
@@ -164,7 +164,7 @@ export class TetrahedronService {
     above: number;
     ratio: number;
   } {
-    const { a, b, c, d } = this.tetrahedron;
+    const { p1: a, p2: b, p3: c, p4: d } = this.tetrahedron;
     const vertices = [a, b, c, d];
     const under: Point3D[] = [];
     const over: Point3D[] = [];

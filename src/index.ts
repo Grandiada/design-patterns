@@ -1,9 +1,10 @@
 // import { RectangleManager } from "./managers";
 
-import { TetrahedronManager } from "./managers/TetrahedronManager";
+import { RectangleManager } from "./managers/RectangleManager";
+import { RectangleRepository } from "./repositories/RectangleRepository";
+const rectangleRepository = new RectangleManager();
+const repository = new RectangleRepository(rectangleRepository);
 
-// const rectangleManager = new RectangleManager().read().safeParse();
-// console.log(rectangleManager.getObjectInfo("Perimetr14"));
+console.log(repository.getSortedByP1());
 
-const tetrahedronManager = new TetrahedronManager().read().safeParse();
-console.log(tetrahedronManager.getObjectInfo("TnoBase"));
+console.log(repository.analize("Perimetr14"));

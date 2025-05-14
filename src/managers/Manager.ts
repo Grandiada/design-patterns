@@ -3,17 +3,18 @@ import fs from "fs";
 import { Logger } from "../logger";
 import systemPath from "path";
 import { InputParser } from "../parsers";
+import { Figure } from "../entities/Figure";
 
-export abstract class Manager<T extends Creator> {
+export abstract class Manager<F extends Figure> {
   abstract path: string;
   abstract factory: Creator;
   abstract coordinatesLength: number;
-  protected abstract analyze(object: ReturnType<T["createObject"]>): string;
+  protected abstract analyze(object: F): string;
 
   protected lines: string[] = [];
-  private objects: ReturnType<T["createObject"]>[] = [];
+  private objects: F[] = [];
 
-  read(): Manager<T> {
+  read(): Manager<F> {
     try {
       const data = fs.readFileSync(
         systemPath.resolve(process.cwd(), this.path),
@@ -28,8 +29,8 @@ export abstract class Manager<T extends Creator> {
     return this;
   }
 
-  safeParse(): Manager<T> {
-    this.objects = this.lines.reduce((acc, line) => {
+  safeParse(): Manager<F> {
+    this.lines.reduce((acc, line) => {
       const validator = new InputParser(this.coordinatesLength);
       const parseResult = validator.safeValidateAndParse(line);
 
@@ -42,15 +43,15 @@ export abstract class Manager<T extends Creator> {
         parseResult.coordinates
       );
 
-      acc.push(object as ReturnType<T["createObject"]>);
+      acc.push(object as F);
 
       return acc;
-    }, [] as ReturnType<T["createObject"]>[]);
+    }, this.objects);
 
     return this;
   }
 
-  getObject(id: string): ReturnType<T["createObject"]> {
+  getObject(id: string): F {
     if (!this.objects.length) {
       throw new Error("No objects found");
     }
@@ -64,7 +65,7 @@ export abstract class Manager<T extends Creator> {
     return object;
   }
 
-  getObjects(): ReturnType<T["createObject"]>[] {
+  getObjects(): F[] {
     return this.objects;
   }
 
