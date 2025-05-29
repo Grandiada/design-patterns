@@ -1,6 +1,0 @@
-{"level":50,"time":1747257847460,"pid":64476,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"\nError: Invalid count of coordinates, expected 8 | Line: Incorect11 0 0 1 1 2 2      \r"}
-{"level":50,"time":1747257847460,"pid":64476,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"\nError: Invalid count of coordinates, expected 8 | Line: Incorect12 0 0 1 0 1 a 0 1   \r"}
-{"level":50,"time":1747257847460,"pid":64476,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"\nError: Invalid count of coordinates, expected 8 | Line: Incorect13 0 0 2 0 2 2       \r"}
-{"level":50,"time":1747257847460,"pid":64476,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"\nError: Invalid count of coordinates, expected 8 | Line: Incorect14 0 0 1 0 1 1 0     \r"}
-{"level":50,"time":1747257847460,"pid":64476,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"\nError: Invalid count of coordinates, expected 8 | Line: Incorect15 0 0 1 0 1 1 0 -1 -2  \r"}
-{"level":50,"time":1747257847460,"pid":64476,"hostname":"JamesTrolfbig","name":"design-patterns-homework","msg":"\nError: Id not found | Line: 0 0 1 0 1 1 0 -1 -2  "}
