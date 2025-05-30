@@ -23,7 +23,7 @@ export default function TaskManager() {
 
     // terminating the connection on component unmount
     return () => eventSource.close();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (!id) return;

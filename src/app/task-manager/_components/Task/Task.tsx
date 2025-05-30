@@ -46,7 +46,9 @@ export const Projects = (props: { task: TaskComponent }) => {
         <Styled.Button
           style={{ marginLeft: "auto" }}
           onClick={() => {
-            id && subscribe(id, task.id);
+            if (id) {
+              subscribe(id, task.id);
+            }
           }}
         >
           Subscribe
@@ -73,7 +75,9 @@ export const Projects = (props: { task: TaskComponent }) => {
       <Styled.Button
         style={{ marginRight: "auto" }}
         onClick={() => {
-          id && subscribe(id, task.id);
+          if (id) {
+            subscribe(id, task.id);
+          }
         }}
       >
         Subscribe

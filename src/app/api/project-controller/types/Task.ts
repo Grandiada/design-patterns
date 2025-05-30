@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TaskComponent } from "./TaskComponent";
 
 export class Task extends TaskComponent {
