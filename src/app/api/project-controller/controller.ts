@@ -95,10 +95,7 @@ export const subscribe = async (userId: string, taskId: string) => {
   }, undefined as TaskComponent | undefined);
 
   if (target) {
-    target.attachObserver(userId, {
-      update: (_id: string, message: string) => {
-        addMessage(userId, _id, message);
-      },
-    });
+    const observer = await addMessage(userId);
+    target.attachObserver(userId, observer);
   }
 };
