@@ -1,7 +1,7 @@
 "use server";
 
 import { Project, Status, Task, TaskComponent } from "./types";
-import { addMessage } from "./types/MessageQueue";
+import { addMessage } from "@/lib/MessageService";
 
 const projects: Project[] = [
   new Project("Project 1", "This is a project", [

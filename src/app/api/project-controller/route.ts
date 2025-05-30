@@ -1,7 +1,7 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { getMessages } from "./types/MessageQueue";
+import { getMessages } from "@/lib/MessageService";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

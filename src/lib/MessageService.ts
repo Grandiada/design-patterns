@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-class MessageQueue {
-  private static instance: MessageQueue;
+class MessageService {
+  private static instance: MessageService;
   private messages: {
     [userId in string]: { componentId: string; message: string }[];
   } = {};
 
   private constructor() {}
 
-  public static getInstance(): MessageQueue {
+  public static getInstance(): MessageService {
     return this.instance || (this.instance = new this());
   }
 
@@ -43,7 +43,7 @@ class MessageQueue {
   }
 }
 
-(global as any).instance = MessageQueue.getInstance();
+(global as any).instance = MessageService.getInstance();
 
 // Export async functions instead of the class
 export async function addMessage(
