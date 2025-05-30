@@ -16,10 +16,12 @@ export async function GET(request: Request) {
   const stream = new ReadableStream({
     start(controller) {
       intervalId = setInterval(async () => {
-        const messages = await getMessages(userId);
         let message = JSON.stringify({
           refresh: true,
         });
+        
+        const messages = await getMessages(userId);
+  
         if (messages.length > 0) {
           message = JSON.stringify(messages);
         }
