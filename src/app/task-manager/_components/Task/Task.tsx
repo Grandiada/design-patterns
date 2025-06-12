@@ -4,55 +4,105 @@ import {
   subscribe,
   TaskComponent,
 } from "@/app/api/project-controller";
-import React from "react";
+import React, { useState } from "react";
 import * as Styled from "./Task.styled";
 import { StatusSelector } from "../StatusSelector";
 import { useClientId } from "@/lib";
+import { Button, Collapse, Flex, List, Typography } from "antd";
+import { AddTask } from "../AddTask";
 
 export const Projects = (props: { task: TaskComponent }) => {
   const task = props.task;
   const id = useClientId();
+  const [isHighlighted, setIsHighlited] = useState(false);
 
   if (task.isProject) {
     return (
       <Styled.Project
+        variant="outlined"
+        onDragEnter={(ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          setIsHighlited(true);
+        }}
+        onDragLeave={(ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          setIsHighlited(false);
+        }}
         onDragOver={(ev) => {
           ev.preventDefault();
+          ev.stopPropagation();
+          setIsHighlited(true);
         }}
+        $isHighlited={isHighlighted}
         onDrop={(ev) => {
           ev.preventDefault();
           ev.stopPropagation();
           const taskId = ev.dataTransfer.getData("text/plain");
           moveTask(taskId, task.id);
+          setIsHighlited(false);
         }}
+        title={
+          <Flex vertical>
+            <Typography.Text>
+              {task.id} Project: {task.name}
+            </Typography.Text>
+            <Typography.Text>{task.description}</Typography.Text>
+          </Flex>
+        }
+        extra={
+          <Flex gap={10} style={{ padding: "5px" }}>
+            <StatusSelector
+              componentId={props.task.id}
+              status={props.task.status}
+            />
+            <Flex vertical gap={10}>
+              <Button
+                style={{ marginLeft: "auto" }}
+                onClick={() => {
+                  if (id) {
+                    subscribe(id, task.id);
+                  }
+                }}
+              >
+                Subscribe
+              </Button>
+
+              <AddTask parentId={task.id} />
+            </Flex>
+          </Flex>
+        }
       >
-        <Styled.TaskHeader>
-          <h3>
-            {task.id} | {task.name}
-          </h3>
-          <StatusSelector
-            componentId={props.task.id}
-            status={props.task.status}
+        {!!(task as Project).components.length && (
+          <Collapse
+            items={(task as Project).components
+              .filter((component) => component.isProject)
+              .map((component) => ({
+                key: component.id,
+                label: component.name,
+                children: <Projects key={component.id} task={component} />,
+              }))}
           />
-        </Styled.TaskHeader>
-        <p>{task.description}</p>
-        <Styled.TaskList>
-          {(task as Project).components.map((component) => (
-            <Styled.Project key={component.id}>
-              <Projects task={component} />
-            </Styled.Project>
-          ))}
-        </Styled.TaskList>
-        <Styled.Button
-          style={{ marginLeft: "auto" }}
-          onClick={() => {
-            if (id) {
-              subscribe(id, task.id);
-            }
-          }}
-        >
-          Subscribe
-        </Styled.Button>
+        )}
+
+        {!!(task as Project).components.filter(
+          (component) => !component.isProject
+        ).length && (
+          <Styled.TaskList
+            size="small"
+            locale={{
+              emptyText: "No tasks",
+            }}
+          >
+            {!!(task as Project).components.length &&
+              (task as Project).components
+                .filter((component) => !component.isProject)
+                .map((component) => (
+                  <Projects key={component.id} task={component} />
+                ))}
+          </Styled.TaskList>
+        )}
       </Styled.Project>
     );
   }
@@ -65,23 +115,23 @@ export const Projects = (props: { task: TaskComponent }) => {
         ev.dataTransfer.setData("text/plain", task.id);
       }}
     >
-      <Styled.TaskHeader>
-        <h3>
-          {task.id} | {task.name}
-        </h3>
-        <StatusSelector componentId={task.id} status={task.status} />
-      </Styled.TaskHeader>
-      <p>{task.description}</p>
-      <Styled.Button
-        style={{ marginRight: "auto" }}
-        onClick={() => {
-          if (id) {
-            subscribe(id, task.id);
-          }
-        }}
-      >
-        Subscribe
-      </Styled.Button>
+      <List.Item.Meta title={`Task: ${task.id} | ${task.name}`} />
+      <div>
+        <StatusSelector
+          componentId={props.task.id}
+          status={props.task.status}
+        />
+        <Button
+          style={{ marginLeft: "auto" }}
+          onClick={() => {
+            if (id) {
+              subscribe(id, task.id);
+            }
+          }}
+        >
+          Subscribe
+        </Button>
+      </div>
     </Styled.Task>
   );
 };

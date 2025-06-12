@@ -1,7 +1,9 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { getMessages } from "@/lib/MessageService";
+import { MessageService } from "@/lib";
+
+const instance = await MessageService.getInstance();
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -19,9 +21,9 @@ export async function GET(request: Request) {
         let message = JSON.stringify({
           refresh: true,
         });
-        
-        const messages = await getMessages(userId);
-  
+
+        const messages = await instance.getMessages(userId);
+
         if (messages.length > 0) {
           message = JSON.stringify(messages);
         }
@@ -43,4 +45,19 @@ export async function GET(request: Request) {
       Connection: "keep-alive",
     },
   });
+}
+
+export async function POST(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get("userId");
+
+  if (!userId || userId === "null") {
+    return new NextResponse("User ID is required", { status: 400 });
+  }
+
+  const { componentId, message } = await request.json();
+
+  instance.addMessage(userId, componentId, message);
+
+  return new NextResponse("Message sent", { status: 200 });
 }

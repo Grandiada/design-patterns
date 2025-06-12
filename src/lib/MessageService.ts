@@ -1,9 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-"use server";
-
-import { IObserver } from "@/app/api/project-controller/types/IObserver";
-
-class MessageService {
+export class MessageService {
   private static instance: MessageService;
   private messages: {
     [userId in string]: { componentId: string; message: string }[];
@@ -39,31 +34,4 @@ class MessageService {
 
     return messages;
   }
-
-  public logMessages() {
-    console.log(this.messages);
-  }
-}
-
-(global as any).instance = MessageService.getInstance();
-
-// Export async functions instead of the class
-export async function addMessage(userId: string): Promise<IObserver> {
-  return {
-    update: (componentId: string, message: string) =>
-      (global as any).instance.addMessage(
-        userId,
-        componentId,
-        message + `by: ${userId}`
-      ),
-  };
-}
-
-export async function getMessages(userId: string): Promise<
-  {
-    componentId: string;
-    message: string;
-  }[]
-> {
-  return (global as any).instance.getMessages(userId);
 }

@@ -1,27 +1,78 @@
 "use server";
 
+import { CreateProjectHandler } from "./creationHandler/CreateProjectHandler";
+import { CreateTaskComponentRequest } from "./creationHandler/CreateTaskComponentRequest";
+import { CreateTaskHandler } from "./creationHandler/CreateTaskHandler";
+import { PlaceTaskHandler } from "./creationHandler/PlaceTaskHandler";
 import { Project, Status, Task, TaskComponent } from "./types";
-import { addMessage } from "@/lib/MessageService";
 
 const projects: Project[] = [
-  new Project("Project 1", "This is a project", [
-    new Project("Project 1.1", "This is a project inside a project", [
-      new Task(
-        "Task 1.1.1",
-        "This is a task inside a project inside a project"
+  new Project(
+    "E-commerce Platform",
+    "Main e-commerce website development project",
+    [
+      new Project(
+        "Frontend Development",
+        "User interface and experience implementation",
+        [
+          new Task(
+            "Shopping Cart",
+            "Implement shopping cart functionality with real-time updates"
+          ),
+          new Task(
+            "Product Catalog",
+            "Create responsive product listing with filters and search"
+          ),
+          new Task(
+            "Checkout Flow",
+            "Build multi-step checkout process with payment integration"
+          ),
+        ]
       ),
-      new Task(
-        "Task 1.1.2",
-        "This is another task inside a project inside a project"
+      new Project(
+        "Backend Development",
+        "Server-side implementation and APIs",
+        [
+          new Task(
+            "User Authentication",
+            "Implement secure login/signup with JWT tokens"
+          ),
+          new Task(
+            "Order Management",
+            "Create APIs for order processing and tracking"
+          ),
+          new Task(
+            "Database Design",
+            "Design and implement database schema for products and users"
+          ),
+        ]
       ),
-    ]),
-    new Project("Project 1.2", "This is another project inside a project", []),
+    ]
+  ),
+  new Project("Mobile App", "Native mobile application development", [
+    new Task(
+      "UI Components",
+      "Develop reusable UI components following design system"
+    ),
+    new Task(
+      "Push Notifications",
+      "Implement push notification system for order updates"
+    ),
+    new Task(
+      "Offline Mode",
+      "Add offline capability for basic app functionality"
+    ),
   ]),
-  new Project("Project 2", "This is another project"),
-  new Project("Project 3", "This is a project with tasks", [
-    new Task("Task 1", "This is a task"),
-    new Task("Task 2", "This is another task"),
-    new Task("Task 3", "This is a task with a description"),
+  new Project("DevOps", "Infrastructure and deployment", [
+    new Task(
+      "CI/CD Pipeline",
+      "Set up automated testing and deployment workflow"
+    ),
+    new Task("Monitoring", "Implement logging and monitoring with alerts"),
+    new Task(
+      "Security Audit",
+      "Perform security assessment and implement fixes"
+    ),
   ]),
 ];
 
@@ -95,7 +146,32 @@ export const subscribe = async (userId: string, taskId: string) => {
   }, undefined as TaskComponent | undefined);
 
   if (target) {
-    const observer = await addMessage(userId);
+    const observer = {
+      update: async (componentId: string, message: string) => {
+        await fetch(
+          `${process.env.NEXT_PUBLIC_SITE_URL}/api/project-controller?userId=${userId}`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              componentId,
+              message,
+            }),
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      },
+    };
     target.attachObserver(userId, observer);
   }
+};
+
+export const addTask = async (request: CreateTaskComponentRequest) => {
+  const handler = new CreateTaskHandler();
+  handler
+    .setNext(new CreateProjectHandler())
+    .setNext(new PlaceTaskHandler(projects));
+
+  const result = handler.handle(request);
+
+  return result;
 };

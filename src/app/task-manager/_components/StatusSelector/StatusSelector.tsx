@@ -1,4 +1,5 @@
 import { Status, changeStatus } from "@/app/api/project-controller";
+import { Select } from "antd";
 import React from "react";
 
 export const StatusSelector: React.FC<{
@@ -6,17 +7,18 @@ export const StatusSelector: React.FC<{
   componentId: string;
 }> = (props) => {
   return (
-    <select
+    <Select<Status>
+      style={{ width: 120 }}
       value={props.status}
-      onChange={async (e) => {
-        changeStatus(props.componentId, e.target.value as Status);
+      onChange={async (value) => {
+        changeStatus(props.componentId, value);
       }}
     >
       {Object.values(Status).map((status) => (
-        <option key={status} value={status}>
+        <Select.Option key={status} value={status}>
           {status}
-        </option>
+        </Select.Option>
       ))}
-    </select>
+    </Select>
   );
 };
