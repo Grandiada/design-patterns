@@ -1,5 +1,7 @@
 "use server";
 
+import { CommandManager } from "./commands/CommandManager";
+import { MoveCommand } from "./commands/MoveCommand";
 import { CreateProjectHandler } from "./creationHandler/CreateProjectHandler";
 import { CreateTaskComponentRequest } from "./creationHandler/CreateTaskComponentRequest";
 import { CreateTaskHandler } from "./creationHandler/CreateTaskHandler";
@@ -76,6 +78,8 @@ const projects: Project[] = [
   ]),
 ];
 
+const commandManager = CommandManager.getInstance();
+
 export const getProjects = async () => {
   return JSON.stringify(projects);
 };
@@ -98,42 +102,13 @@ export const moveTask = async (
   componentToMoveId: string,
   targetComponentId: string
 ) => {
-  const componentToMove = projects.reduce(
-    (acc, project) => {
-      const toMoveComponent = project.findComponentById(componentToMoveId);
-      if (toMoveComponent) {
-        acc = {
-          component: toMoveComponent.component,
-          parentComponent: toMoveComponent.parentComponent,
-        };
-      }
-      return acc;
-    },
-    undefined as
-      | {
-          component: TaskComponent | undefined;
-          parentComponent: TaskComponent | undefined;
-        }
-      | undefined
+  const command = new MoveCommand(
+    componentToMoveId,
+    targetComponentId,
+    projects
   );
-
-  const target = projects.reduce((acc, project) => {
-    const component = project.findComponentById(targetComponentId);
-    if (component) {
-      acc = component.component;
-    }
-    return acc;
-  }, undefined as TaskComponent | undefined);
-
-  if (
-    componentToMove &&
-    componentToMove.component &&
-    componentToMove.parentComponent &&
-    target
-  ) {
-    componentToMove.parentComponent?.remove(componentToMove.component);
-    target.add(componentToMove.component);
-  }
+  
+  commandManager.executeCommand(command);
 };
 
 export const subscribe = async (userId: string, taskId: string) => {
@@ -174,4 +149,8 @@ export const addTask = async (request: CreateTaskComponentRequest) => {
   const result = handler.handle(request);
 
   return result;
+};
+
+export const undoCommand = async () => {
+  commandManager.undo();
 };

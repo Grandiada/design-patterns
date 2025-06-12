@@ -1,8 +1,12 @@
+import { AddCommand } from "../commands/AddComand";
+import { CommandManager } from "../commands/CommandManager";
 import { Project, TaskComponent } from "../types";
 import { AbstractHandler } from "./AbstractHandler";
 import { CreateTaskComponentRequest } from "./CreateTaskComponentRequest";
 
 export class PlaceTaskHandler extends AbstractHandler {
+  private readonly commandManager = CommandManager.getInstance();
+
   /**
    *
    */
@@ -14,22 +18,14 @@ export class PlaceTaskHandler extends AbstractHandler {
     request: CreateTaskComponentRequest,
     component?: TaskComponent
   ): TaskComponent[] | null {
-    if (request.parentId && component) {
-      const target = this.projects?.reduce((acc, project) => {
-        if (!request.parentId) {
-          return acc;
-        }
-
-        const component = project.findComponentById(request.parentId);
-        if (component) {
-          acc = component.component;
-        }
-        return acc;
-      }, undefined as TaskComponent | undefined);
-
-      if (target) {
-        target.add(component);
-      }
+    if (request.parentId && component && this.projects) {
+      const command = new AddCommand(
+        component,
+        request.parentId,
+        this.projects
+      );
+      
+      this.commandManager.executeCommand(command);
     }
 
     return super.handle(request, component);

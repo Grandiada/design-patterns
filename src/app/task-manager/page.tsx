@@ -1,12 +1,16 @@
 "use client";
 
 import { startTransition, useEffect, useState } from "react";
-import { getProjects, Project } from "@/app/api/project-controller";
+import {
+  getProjects,
+  Project,
+  undoCommand,
+} from "@/app/api/project-controller";
 import { Projects } from "./_components/Task";
 import * as Styled from "./page.styled";
 import { useClientId } from "@/lib";
 import { ToastContainer, toast } from "react-toastify";
-import { Empty, Flex, Layout, Spin, Splitter, Typography } from "antd";
+import { Button, Empty, Flex, Layout, Spin, Splitter, Typography } from "antd";
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 
@@ -55,9 +59,16 @@ export default function TaskManager() {
           }}
         >
           <Splitter.Panel defaultSize="10%" min="10%" max="70%">
-            <Flex justify="center" style={{ height: "100%", padding: "10px" }}>
+            <Flex
+              align="center"
+              vertical
+              style={{ height: "100%", padding: "10px" }}
+            >
               <Typography.Text>
                 <Link href="/task-manager">Projects List</Link>
+              </Typography.Text>
+              <Typography.Text>
+                <Button onClick={undoCommand}>Undo</Button>
               </Typography.Text>
             </Flex>
           </Splitter.Panel>

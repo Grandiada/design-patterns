@@ -17,7 +17,6 @@ JS2: deadline: 27.06
 Adapter
 Bridge
 Builder
-Command
 Composite
 Decorator
 Facade
@@ -38,3 +37,4 @@ FactoryMethod
 Singleton
 Observer
 Chain of Responsibility
+Command
