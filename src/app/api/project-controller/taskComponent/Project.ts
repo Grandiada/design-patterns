@@ -1,3 +1,4 @@
+import { TaskView } from "../viewModels";
 import { TaskComponent } from "./TaskComponent";
 
 export class Project extends TaskComponent {
@@ -50,5 +51,12 @@ export class Project extends TaskComponent {
     }
 
     return undefined;
+  }
+
+  toView(): TaskView {
+    return {
+      ...super.toView(),
+      components: this.components.map((c) => c.toView()),
+    };
   }
 }

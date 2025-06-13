@@ -1,8 +1,9 @@
 import { AddCommand } from "../commands/AddComand";
 import { CommandManager } from "../commands/CommandManager";
-import { Project, TaskComponent } from "../types";
+import { ProjectFacade } from "../projectsFacade";
+import { TaskComponent } from "../taskComponent";
 import { AbstractHandler } from "./AbstractHandler";
-import { CreateTaskComponentRequest } from "./CreateTaskComponentRequest";
+import { CreateTaskComponentRequest } from "../viewModels/CreateTaskComponentRequest";
 
 export class PlaceTaskHandler extends AbstractHandler {
   private readonly commandManager = CommandManager.getInstance();
@@ -10,7 +11,7 @@ export class PlaceTaskHandler extends AbstractHandler {
   /**
    *
    */
-  constructor(private readonly projects?: Project[]) {
+  constructor(private readonly projectsFacade: ProjectFacade) {
     super();
   }
 
@@ -18,13 +19,13 @@ export class PlaceTaskHandler extends AbstractHandler {
     request: CreateTaskComponentRequest,
     component?: TaskComponent
   ): TaskComponent[] | null {
-    if (request.parentId && component && this.projects) {
+    if (request.parentId && component) {
       const command = new AddCommand(
         component,
         request.parentId,
-        this.projects
+        this.projectsFacade
       );
-      
+
       this.commandManager.executeCommand(command);
     }
 

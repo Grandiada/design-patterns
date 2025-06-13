@@ -1,4 +1,4 @@
-import { Project } from "../types";
+import { Project } from "../taskComponent";
 import { Creator } from "./ICreator";
 
 export class ProjectCreator implements Creator {

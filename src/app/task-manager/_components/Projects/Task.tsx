@@ -1,17 +1,14 @@
-import {
-  moveTask,
-  Project,
-  subscribe,
-  TaskComponent,
-} from "@/app/api/project-controller";
+import { moveTask, subscribe } from "@/app/api/project-controller";
 import React, { useState } from "react";
 import * as Styled from "./Task.styled";
 import { StatusSelector } from "../StatusSelector";
 import { useClientId } from "@/lib";
 import { Button, Collapse, Flex, List, Typography } from "antd";
 import { AddTask } from "../AddTask";
+import { TaskView } from "@/app/api/project-controller/viewModels";
+import { Project } from "@/app/api/project-controller/taskComponent";
 
-export const Projects = (props: { task: TaskComponent }) => {
+export const Task: React.FC<{ task: TaskView }> = (props) => {
   const task = props.task;
   const id = useClientId();
   const [isHighlighted, setIsHighlited] = useState(false);
@@ -81,7 +78,7 @@ export const Projects = (props: { task: TaskComponent }) => {
               .map((component) => ({
                 key: component.id,
                 label: component.name,
-                children: <Projects key={component.id} task={component} />,
+                children: <Task key={component.id} task={component} />,
               }))}
           />
         )}
@@ -99,7 +96,7 @@ export const Projects = (props: { task: TaskComponent }) => {
               (task as Project).components
                 .filter((component) => !component.isProject)
                 .map((component) => (
-                  <Projects key={component.id} task={component} />
+                  <Task key={component.id} task={component} />
                 ))}
           </Styled.TaskList>
         )}

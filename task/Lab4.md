@@ -18,8 +18,6 @@ Adapter
 Bridge
 Builder
 Composite
-Decorator
-Facade
 Flyweight
 Information Expert
 Interpreter
@@ -38,3 +36,5 @@ Singleton
 Observer
 Chain of Responsibility
 Command
+Facade
+Decorator (HOC)

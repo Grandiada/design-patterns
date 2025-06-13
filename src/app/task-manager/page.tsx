@@ -1,50 +1,18 @@
 "use client";
 
-import { startTransition, useEffect, useState } from "react";
-import {
-  getProjects,
-  Project,
-  undoCommand,
-} from "@/app/api/project-controller";
-import { Projects } from "./_components/Task";
+import { useState } from "react";
+import { undoCommand } from "@/app/api/project-controller";
 import * as Styled from "./page.styled";
 import { useClientId } from "@/lib";
-import { ToastContainer, toast } from "react-toastify";
-import { Button, Empty, Flex, Layout, Spin, Splitter, Typography } from "antd";
+import { toast, ToastContainer } from "react-toastify";
+import { Button, Flex, Layout, Spin, Splitter, Typography } from "antd";
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
+import { Projects } from "./_components/Projects";
 
 export default function TaskManager() {
-  const [projects, setProjects] = useState<Project[]>([]);
   const [isConnected, setIsConnected] = useState(false);
   const id = useClientId();
-
-  useEffect(() => {
-    if (!id) return;
-    const eventSource = new EventSource(`/api/project-controller?userId=${id}`);
-
-    eventSource.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      if (Array.isArray(message)) {
-        message.forEach((m) => {
-          toast(m.message);
-        });
-      }
-
-      startTransition(async () => {
-        const updatedViews = await getProjects();
-        setProjects(JSON.parse(updatedViews));
-        setIsConnected(true);
-      });
-    };
-
-    eventSource.onerror = (err) => {
-      console.error("SSE Error:", err);
-      eventSource.close();
-    };
-
-    return () => eventSource.close();
-  }, [id]);
 
   return (
     <Styled.Root>
@@ -68,7 +36,16 @@ export default function TaskManager() {
                 <Link href="/task-manager">Projects List</Link>
               </Typography.Text>
               <Typography.Text>
-                <Button onClick={undoCommand}>Undo</Button>
+                <Button
+                  onClick={async () => {
+                    const result = await undoCommand();
+                    if (result?.errorMessage) {
+                      toast.error(result.errorMessage);
+                    }
+                  }}
+                >
+                  Undo
+                </Button>
               </Typography.Text>
             </Flex>
           </Splitter.Panel>
@@ -78,14 +55,11 @@ export default function TaskManager() {
                 <Spin size="large" />
               </Styled.LoaderWrapper>
             )}
-            {!projects.length && isConnected && <Empty />}
-            {projects.length > 0 && (
-              <Styled.Content>
-                {projects.map((project) => (
-                  <Projects key={project.id} task={project} />
-                ))}
-              </Styled.Content>
-            )}
+
+            <Projects
+              onConnected={() => setIsConnected(true)}
+              isConnected={isConnected}
+            />
           </Splitter.Panel>
         </Splitter>
       </Layout>

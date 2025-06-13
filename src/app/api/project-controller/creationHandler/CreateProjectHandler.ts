@@ -1,7 +1,7 @@
 import { ProjectCreator } from "../creator/ProjectCreator";
-import { TaskComponent } from "../types";
+import { TaskComponent } from "../taskComponent";
 import { AbstractHandler } from "./AbstractHandler";
-import { CreateTaskComponentRequest } from "./CreateTaskComponentRequest";
+import { CreateTaskComponentRequest } from "../viewModels/CreateTaskComponentRequest";
 
 export class CreateProjectHandler extends AbstractHandler {
   public handle(

@@ -1,4 +1,4 @@
-import { Task } from "../types";
+import { Task } from "../taskComponent";
 import { Creator } from "./ICreator";
 
 export class TaskCreator implements Creator {

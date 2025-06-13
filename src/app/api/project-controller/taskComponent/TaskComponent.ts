@@ -1,7 +1,8 @@
 import { generateId } from "@/lib";
 import { Status } from "./Status";
-import { Publisher } from "./Publisher";
-import { IObserver } from "./IObserver";
+import { Publisher } from "../observable/Publisher";
+import { IObserver } from "../observable/IObserver";
+import { TaskView } from "../viewModels";
 
 export abstract class TaskComponent extends Publisher {
   public id: string;
@@ -59,5 +60,15 @@ export abstract class TaskComponent extends Publisher {
     this.observers.forEach((observer) => {
       observer.update(id, message);
     });
+  }
+
+  toView(): TaskView {
+    return {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      status: this.status,
+      isProject: this.isProject,
+    };
   }
 }

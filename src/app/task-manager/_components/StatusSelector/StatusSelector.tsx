@@ -1,4 +1,5 @@
-import { Status, changeStatus } from "@/app/api/project-controller";
+import { changeStatus } from "@/app/api/project-controller";
+import { Status } from "@/app/api/project-controller/taskComponent";
 import { Select } from "antd";
 import React from "react";
 

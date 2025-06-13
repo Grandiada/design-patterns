@@ -1,5 +1,5 @@
-import { TaskComponent } from "../types";
-import { CreateTaskComponentRequest } from "./CreateTaskComponentRequest";
+import { TaskComponent } from "../taskComponent";
+import { CreateTaskComponentRequest } from "../viewModels/CreateTaskComponentRequest";
 
 export interface Handler {
   setNext(handler: Handler): Handler;

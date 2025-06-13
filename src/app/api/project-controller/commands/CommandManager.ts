@@ -18,6 +18,10 @@ export class CommandManager {
     this.history.push(command);
   }
 
+  isUndoAvailable(): boolean {
+    return this.history.length > 0;
+  }
+
   undo(): void {
     const command = this.history.pop();
     if (command) {

@@ -1,5 +1,5 @@
 import { addTask } from "@/app/api/project-controller";
-import { CreateTaskComponentRequest } from "@/app/api/project-controller/creationHandler/CreateTaskComponentRequest";
+import { CreateTaskComponentRequest } from "@/app/api/project-controller/viewModels/CreateTaskComponentRequest";
 import {
   Button,
   Input,

@@ -1,25 +1,16 @@
-import { Project, TaskComponent } from "../types";
+import { ProjectFacade } from "../projectsFacade";
+import { TaskComponent } from "../taskComponent";
 import { ICommand } from "./ICommand";
 
 export class AddCommand implements ICommand {
   constructor(
     private readonly taskComponent: TaskComponent,
     private readonly parentId: string,
-    private readonly projects: Project[]
+    private readonly projectsFacade: ProjectFacade
   ) {}
 
   execute(): void {
-    const target = this.projects?.reduce((acc, project) => {
-      if (!this.parentId) {
-        return acc;
-      }
-
-      const component = project.findComponentById(this.parentId);
-      if (component) {
-        acc = component.component;
-      }
-      return acc;
-    }, undefined as TaskComponent | undefined);
+    const target = this.projectsFacade.getComponentsById(this.parentId);
 
     if (target) {
       target.add(this.taskComponent);
@@ -27,19 +18,8 @@ export class AddCommand implements ICommand {
   }
 
   undo(): void {
-    const target = this.projects?.reduce((acc, project) => {
-        if (!this.parentId) {
-          return acc;
-        }
-  
-        const component = project.findComponentById(this.parentId);
-        if (component) {
-          acc = component.component;
-        }
-        return acc;
-      }, undefined as TaskComponent | undefined);
+    const target = this.projectsFacade.getComponentsById(this.parentId);
 
-      
     if (target) {
       target.remove(this.taskComponent);
     }

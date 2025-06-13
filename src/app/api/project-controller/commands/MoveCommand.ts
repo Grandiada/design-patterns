@@ -1,4 +1,4 @@
-import { Project, TaskComponent } from "../types";
+import { ProjectFacade } from "../projectsFacade";
 import { ICommand } from "./ICommand";
 
 export class MoveCommand implements ICommand {
@@ -7,38 +7,16 @@ export class MoveCommand implements ICommand {
   constructor(
     private readonly componentToMoveId: string,
     private readonly targetComponentId: string,
-    private readonly projects: Project[]
+    private readonly projectsFacade: ProjectFacade
   ) {}
 
   private move(componentToMoveId: string, targetComponentId: string): void {
-    const componentToMove = this.projects.reduce(
-      (acc, project) => {
-        const toMoveComponent = project.findComponentById(componentToMoveId);
-        if (toMoveComponent) {
-          acc = {
-            component: toMoveComponent.component,
-            parentComponent: toMoveComponent.parentComponent,
-          };
-        }
-        return acc;
-      },
-      undefined as
-        | {
-            component: TaskComponent | undefined;
-            parentComponent: TaskComponent | undefined;
-          }
-        | undefined
-    );
+    const componentToMove =
+      this.projectsFacade.getComponentWithParentById(componentToMoveId);
 
     this.prevParrentId = componentToMove?.parentComponent?.id;
-
-    const target = this.projects.reduce((acc, project) => {
-      const component = project.findComponentById(targetComponentId);
-      if (component) {
-        acc = component.component;
-      }
-      return acc;
-    }, undefined as TaskComponent | undefined);
+    
+    const target = this.projectsFacade.getComponentsById(targetComponentId);
 
     if (
       componentToMove &&

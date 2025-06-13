@@ -1,4 +1,4 @@
-import { TaskComponent } from "../types";
+import { TaskComponent } from "../taskComponent";
 
 export abstract class Creator {
   public abstract createObject(

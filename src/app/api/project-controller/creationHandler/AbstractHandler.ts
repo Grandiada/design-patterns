@@ -1,5 +1,5 @@
-import { TaskComponent } from "../types";
-import { CreateTaskComponentRequest } from "./CreateTaskComponentRequest";
+import { TaskComponent } from "../taskComponent";
+import { CreateTaskComponentRequest } from "../viewModels/CreateTaskComponentRequest";
 import { Handler } from "./IHandler";
 
 export abstract class AbstractHandler implements Handler {

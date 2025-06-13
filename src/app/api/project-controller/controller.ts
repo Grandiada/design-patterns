@@ -3,12 +3,13 @@
 import { CommandManager } from "./commands/CommandManager";
 import { MoveCommand } from "./commands/MoveCommand";
 import { CreateProjectHandler } from "./creationHandler/CreateProjectHandler";
-import { CreateTaskComponentRequest } from "./creationHandler/CreateTaskComponentRequest";
+import { CreateTaskComponentRequest } from "./viewModels/CreateTaskComponentRequest";
 import { CreateTaskHandler } from "./creationHandler/CreateTaskHandler";
 import { PlaceTaskHandler } from "./creationHandler/PlaceTaskHandler";
-import { Project, Status, Task, TaskComponent } from "./types";
+import { ProjectFacade } from "./projectsFacade";
+import { Project, Status, Task } from "./taskComponent";
 
-const projects: Project[] = [
+const projectsFacade = new ProjectFacade([
   new Project(
     "E-commerce Platform",
     "Main e-commerce website development project",
@@ -76,22 +77,16 @@ const projects: Project[] = [
       "Perform security assessment and implement fixes"
     ),
   ]),
-];
+]);
 
 const commandManager = CommandManager.getInstance();
 
 export const getProjects = async () => {
-  return JSON.stringify(projects);
+  return projectsFacade.serialize();
 };
 
 export const changeStatus = async (taskComponentId: string, status: Status) => {
-  const target = projects.reduce((acc, project) => {
-    const component = project.findComponentById(taskComponentId);
-    if (component) {
-      acc = component.component;
-    }
-    return acc;
-  }, undefined as TaskComponent | undefined);
+  const target = projectsFacade.getComponentsById(taskComponentId);
 
   if (target) {
     target.changeStatus(status);
@@ -105,20 +100,14 @@ export const moveTask = async (
   const command = new MoveCommand(
     componentToMoveId,
     targetComponentId,
-    projects
+    projectsFacade
   );
-  
+
   commandManager.executeCommand(command);
 };
 
 export const subscribe = async (userId: string, taskId: string) => {
-  const target = projects.reduce((acc, project) => {
-    const component = project.findComponentById(taskId);
-    if (component) {
-      acc = component.component;
-    }
-    return acc;
-  }, undefined as TaskComponent | undefined);
+  const target = projectsFacade.getComponentsById(taskId);
 
   if (target) {
     const observer = {
@@ -144,7 +133,7 @@ export const addTask = async (request: CreateTaskComponentRequest) => {
   const handler = new CreateTaskHandler();
   handler
     .setNext(new CreateProjectHandler())
-    .setNext(new PlaceTaskHandler(projects));
+    .setNext(new PlaceTaskHandler(projectsFacade));
 
   const result = handler.handle(request);
 
@@ -152,5 +141,11 @@ export const addTask = async (request: CreateTaskComponentRequest) => {
 };
 
 export const undoCommand = async () => {
-  commandManager.undo();
+  if (commandManager.isUndoAvailable()) {
+    commandManager.undo();
+  } else {
+    return {
+      errorMessage: "No command to undo",
+    };
+  }
 };
