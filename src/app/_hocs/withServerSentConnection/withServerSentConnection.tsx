@@ -1,3 +1,5 @@
+"use client";
+
 import { TaskView } from "@/app/api/project-controller/viewModels";
 import { startTransition, useEffect, useState } from "react";
 import { useClientId } from "@/lib";
@@ -55,7 +57,7 @@ export function withServerSentProjects<P extends WithServerSentProjectsProps>(
       };
 
       return () => eventSource.close();
-    }, [id, onConnected]);
+    }, [id]);
 
     if (!isConnected) {
       return null;
